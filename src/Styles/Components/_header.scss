@@ -1,0 +1,45 @@
+@import '../utils/variables.scss';
+
+
+@mixin header_style {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+& > img {
+    width: 3rem;
+    margin: 0px 20px;
+    margin-bottom: $spacing-lg;
+    margin-top: $spacing-md;
+  }
+  &__botton {
+    cursor: pointer;
+    border: transparent;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: $menu-color;
+  }
+  &__buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    & > p {
+      margin: 0px 20px;
+      color: $text-color;
+    }
+  }
+}
+
+.header{
+  background-color: $menu-color;
+  @include header_style;
+}
+
+.header_dark{
+  background-color: #006d77;
+  @include header_style;
+}
+
