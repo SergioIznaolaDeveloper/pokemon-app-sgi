@@ -7,10 +7,9 @@ class Card extends Component {
   }
     render() {
       const { name } = this.props.data;
-      console.log(this.props.foto)
-    return <article>
-      <p>{name}</p>
-      <img src={this.props.foto} alt={name} />
+    return <article className="card">
+      <p className="card__name">{name}</p>
+      <img className="card__img" src={this.props.foto} alt={name} />
     </article>
   }
 }

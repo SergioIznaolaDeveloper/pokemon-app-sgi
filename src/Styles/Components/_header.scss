@@ -9,17 +9,7 @@
     width: 100%;
 & > img {
     width: 3rem;
-    margin: 0px 20px;
-    margin-bottom: $spacing-lg;
-    margin-top: $spacing-md;
-  }
-  &__botton {
-    cursor: pointer;
-    border: transparent;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: $menu-color;
+    margin: 5px 20px;
   }
   &__buttons-container {
     display: flex;
@@ -39,7 +29,10 @@
 }
 
 .header_dark{
-  background-color: #006d77;
+  background-color: #363B81;
+  & > .nav > .nav__div {
+    color: white;
+  }
   @include header_style;
 }
 

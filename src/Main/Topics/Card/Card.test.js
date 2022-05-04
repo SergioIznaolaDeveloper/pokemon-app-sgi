@@ -1,10 +1,10 @@
 import React from "react";
-import { shallow } from "enzyme";
 import Card from "./Card";
+import { render, screen } from '@testing-library/react';
 
 describe("Topic", () => {
   test("matches snapshot", () => {
-    const wrapper = shallow(<Card />);
-    expect(wrapper).toMatchSnapshot();
+    render(<Card />);
+    expect(screen).toMatchSnapshot();
   });
 });

@@ -10,7 +10,7 @@ class Nav extends Component {
         </Link>
         <br />
         <Link className="nav__div" to="/topics">
-          Topics
+          Pokemons
         </Link>
 
       </nav>

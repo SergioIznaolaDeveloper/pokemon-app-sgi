@@ -7,7 +7,7 @@ export class Main extends Component {
   render() {
     return (
       <main>
-        <h1>CakeToTake</h1>
+        <h1>POKEMONS APP</h1>
         <Routes> 
           <Route path="/topics" element={<Topics />} />  
         </Routes>
