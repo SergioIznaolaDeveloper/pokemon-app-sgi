@@ -1,0 +1,83 @@
+@import '../utils/variables.scss';
+@import '../utils/mixings.scss';
+main{
+    @include column;
+    margin-bottom: 50px;
+}
+.form{
+    @include column;
+    margin-left: auto;
+    margin-right: auto;
+}
+.card__content{
+    font-family: "oswald", sans-serif;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+    margin-top: 40px;
+}
+.card{
+    background-color: white;
+    margin: 5px;
+    border-radius: 150px;
+    border: 5px solid black;
+    transition: 0.5s;
+    width: 150px;
+    &__name{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        margin-bottom: -25px;
+        color: white;
+        height: 75px;
+        font-size: 25px;
+        background-color: red;
+        border-radius: 150px  150px 0px 0px;
+        border-bottom: 5px solid black;
+    }
+  }
+  .card:hover{
+      transform: scale(105%);
+      transform: rotateY(360deg);
+  }
+
+  .oneCard{
+    background-color: white;
+    margin: 5px;
+    border-radius: 50px;
+    border: 5px solid black;
+    transition: 0.5s;
+    &__title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        background-color: red;
+        color: white;
+        height: 50px;
+        border-radius: 45px 45px 0px 0px;
+        border-bottom: 5px solid black;
+    }
+    &__img{
+        width: 200px;
+        height: 200px;
+    }
+    &__info_content{
+        display: flex;
+        flex-flow: row;
+        justify-content: center;
+        align-items: center;
+    }
+    &__text_content{
+        display: flex;
+        flex-flow: column;
+        margin: 10px;
+        align-items: flex-start;
+    }
+    &__info{
+        margin: 10px 40px;
+    }
+  }
