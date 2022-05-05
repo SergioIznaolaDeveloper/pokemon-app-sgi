@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { ContextTheme } from "../../Context/ContextTheme";
 import Card from "./Card/Card";
+import {DebounceInput} from 'react-debounce-input';
 
 const HooksUseEffect = () => {
   const {them} = useContext(ContextTheme);
@@ -8,28 +9,36 @@ const HooksUseEffect = () => {
   const [pokemons, setPokemons] = useState([]);
   const [pokemon, setPokemon] = useState([]);
   const [recent,  setRecent] = useState([]);
-  // const [id,  setRecent] = useState([]);
   const [inputText, setInputText] = useState("");
+
   try {
     
     useEffect(() => {
-      const getPokemons = async () => {
-        const resp = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`);
-        const data = await resp.json();
-        setPokemons(data);
-      };
-      getPokemons();
-    }, []);
+       fetch(
+          `https://pokeapi.co/api/v2/pokemon/${inputText}`
+        )
+        .then(res => res.json())
+        .then(data => {
+          const includeData = (data) => {
+            data.name ? (setPokemon(data)) : (paintPokemons()); 
+            data.name ? (recent===""?(setRecent(data)):(setRecent([data, ...recent,]))) : (console.log("no hay datos recientes"));
+          }
+          includeData(data)
+      })
+      }, [inputText]);
+    
+    // funcion para fetch todos los pokemons
+    const getPokemons = async () => {
+      const resp = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`);
+      const data = await resp.json();
+      setPokemons(data);
+    };
+    getPokemons();
 
+    // funcion para recoger el pokemon seleccionado desde input
     const onChangeInput = async (e) => {
       e.preventDefault();
       setInputText(e.target.value);
-      const resp = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${e.target.value}`
-      );
-      const data = await resp.json();
-      data.name ? (setPokemon(data)) : (paintPokemons()); 
-      data.name ? (recent===""?(setRecent(data)):(setRecent([data, ...recent,]))) : (console.log("no hay datos recientes"));
     };
 
     const paintPokemons = () =>
@@ -41,26 +50,20 @@ const HooksUseEffect = () => {
         />
       ));
 
-    const recentPokemon = () =>
-      recent.map((pok) => (
-         pok.id
-      ));
-      recentPokemon()
-   
     return (
       <section className={secStyle}>
         <p>POKEDEX - SEARCHER</p>
-        {/* {suggestPokemon()} */}
         <form className="sec1__form">
           <label className="sec1__label" htmlFor="name">Pokemon name: </label>
-          <input
+          <DebounceInput
+          debounceTimeout={1000}
           className="sec1__input"
             name="name"
             type="text"
             placeholder="pikachu"
             value={inputText}
-            onInput={onChangeInput}
-          ></input>
+            onChange={onChangeInput}
+          ></DebounceInput>
         </form>
         <section className="recent">
         {recent.length? <p className="recent__text">LAST POKEMONS SEARCHED...</p>:<p></p>}
