@@ -6,11 +6,11 @@ class Nav extends Component {
     return (
       <nav className="nav">
         <Link className="nav__div" to="/">
-          Home
+          HOME
         </Link>
         <br />
         <Link className="nav__div" to="/topics">
-          Pokemons
+          POKEMONS
         </Link>
 
       </nav>

@@ -4,8 +4,8 @@ import { ContextTheme } from "../Context/ContextTheme";
 function Footer() {
   const { them } = useContext(ContextTheme);
   const footerStyle = "footer"+them;
-  console.log(footerStyle);
-  return <footer className={footerStyle}></footer>;
+
+  return <footer className={footerStyle}>Pokemon WebApp made by 🍀 Sergio González Iznaola</footer>;
 }
 
 export default Footer;

@@ -2,6 +2,9 @@
 
 
 @mixin header_style {
+  position: fixed;
+  top: 0;
+  z-index: 10;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -10,6 +13,7 @@
 & > img {
     width: 3rem;
     margin: 5px 20px;
+    filter: drop-shadow(2px 2px 3px #222);
   }
   &__buttons-container {
     display: flex;
@@ -20,9 +24,14 @@
       margin: 0px 20px;
       color: $text-color;
     }
+
   }
 }
-
+.style__button {
+    background-color: transparent;
+    border: transparent;
+    font-size: 30px;
+}
 .header{
   background-color: $menu-color;
   @include header_style;
