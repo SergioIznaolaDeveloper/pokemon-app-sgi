@@ -4,27 +4,40 @@ import Card from "./Card/Card";
 import {DebounceInput} from 'react-debounce-input';
 
 const HooksUseEffect = () => {
-  const {them} = useContext(ContextTheme);
-  const secStyle = "sec1"+them;
-  const [pokemons, setPokemons] = useState([]);
-  const [pokemon, setPokemon] = useState([]);
-  const [recent,  setRecent] = useState([]);
-  const [inputText, setInputText] = useState("");
-
+  const {them} = useContext(ContextTheme); //extraer __dark o "" de context
+  const secStyle = "sec1"+them; //crear el className en base al context
+  const [pokemons, setPokemons] = useState([]); // state para almacenar todos los pokemons
+  const [pokemon, setPokemon] = useState([]); // state para almacenar el pokemon seleccionado
+  const [recent,  setRecent] = useState([]); // state para almacenar los pokemons recientes
+  const [inputText, setInputText] = useState(""); // state para almacenar el texto del input
+  
   try {
-    
     useEffect(() => {
        fetch(
           `https://pokeapi.co/api/v2/pokemon/${inputText}`
         )
         .then(res => res.json())
         .then(data => {
-          const includeData = (data) => {
-            data.name ? (setPokemon(data)) : (paintPokemons()); 
-            data.name ? (recent===""?(setRecent(data)):(setRecent([data, ...recent,]))) : (console.log("no hay datos recientes"));
-          }
           includeData(data)
       })
+      let repeted = false;
+      const testRecent = () => {
+        recent.map(p => {
+         p.name === inputText ? repeted = true : console.log("no hay pokemos repetidos")
+        })}
+        setPokemon([]);
+        testRecent()
+        console.log(repeted)
+      const includeData = (data) => {
+        data.name ? (setPokemon(data)) : (paintPokemons());
+        data.name 
+        ? (recent===""
+          ?(setRecent(data)) 
+          : (repeted === false
+            ?setRecent([data, ...recent,])
+            :(console.log("no se puede agregar"))))
+        : (console.log("no hay datos recientes"));
+      }
       }, [inputText]);
     
     // funcion para fetch todos los pokemons
@@ -55,7 +68,7 @@ const HooksUseEffect = () => {
         <p>POKEDEX - SEARCHER</p>
         <form className="sec1__form">
           <label className="sec1__label" htmlFor="name">Pokemon name: </label>
-          <DebounceInput
+          <DebounceInput // boton con debounce de 1 segundo para no saturar la api
           debounceTimeout={1000}
           className="sec1__input"
             name="name"
@@ -77,6 +90,7 @@ const HooksUseEffect = () => {
             className="recent__img"
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pok.id}.png`}
               alt={pok.name}
+              onClick={() => {setInputText(pok.name);}}
             /></div>))) : <p></p>}
             </div>
             </section>
