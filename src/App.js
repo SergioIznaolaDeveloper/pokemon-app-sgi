@@ -7,6 +7,7 @@ import { ContextTheme } from "./Context/ContextTheme";
 import { useState, useEffect } from "react";
 import Card from "./Main/Topics/Card/Card";
 import "./Styles/Styles.scss";
+import Form from "./Main/Form/Form";
 
 // React functional component
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const [inputText, setInputText] = useState(""); // state para almacenar el texto del input
 
   try {
+    
     // todo lo que depende de inputText
     useEffect(() => {
       const includeData = (data) => {
@@ -48,15 +50,18 @@ function App() {
       setPokemon([]); // vacía el state del ultimo pokemon buscado
       testRecent(); // ejecuta testRecent
       }, [inputText]);
-    
+
     // funcion para fetch todos los pokemons
     const getPokemons = async () => {
       if (pokemons.length === 0) {
       const resp = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`);
       const data = await resp.json();
       setPokemons(data);
-      }
-    };
+      } 
+      for (let i = myPokemons.length; i < pokemons.results.length; i++) {
+        pokemons.results[i].picture = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`
+    }
+  };
     getPokemons();
 
     // funcion para recoger el pokemon seleccionado desde input
@@ -65,6 +70,7 @@ function App() {
       setInputText(e.target.value);
     };
     // funcion para pintar el pokemon buscado
+
     const paintPokemons = () =>
       pokemons.results.map((pok, i) => (
         <Card
@@ -72,32 +78,23 @@ function App() {
           data={pok}
           key={i}
           func={setInputText}
-          foto={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i + 1}.png`}
         />
       ));
         // gestión del formulario para añadir nuevo pokemon
-      const addPokemon = async (event) => {
-        event.preventDefault();
-        const name = event.target.name.value; // input del from
-        const type = event.target.type.value; // input del from
-        const picture = event.target.picture.value; // input del from
-        const hp = event.target.hp.value; // input del from
-        const attack = event.target.atacck.value; // input del from
-        const defense = event.target.defense.value; // input del from
-        const sAttack = event.target.sAttack.value; // input del from
-        const sDefense = event.target.sDefense.value; // input del from
+      const addPokemon = async (data) => {
         const newPokemon = {
-          name: name,
-          type: type,
-          picture: picture,
-          hp: hp,
-          attack: attack,
-          defense: defense,
-          sAttack: sAttack,
-          sDefense: sDefense,
+          name: data.name,
+          type: data.type,
+          picture: data.url,
+          hp: data.hp,
+          attack: data.attack,
+          defense: data.defense,
+          sAttack: data.sAttack,
+          sDefense: data.sDefense,
         }; // seteo el state con user
         setMyPokemons(newPokemon); // seteo el state con noticia
-        setPokemons([newPokemon, ...pokemons]); // seteo el state con noticias
+        pokemons.results = [newPokemon, ...pokemons.results]; // seteo el state con noticias
+        this.reset()
       };
   // agrupar datos y funciones para el context
   const dataInfo = {
@@ -131,7 +128,7 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}   catch (e) {
+}  catch (e) {
   console.log(e);
 }
 };

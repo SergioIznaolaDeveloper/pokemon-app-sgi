@@ -10,12 +10,12 @@ class Card extends Component {
   }
 
     render() {
-      const { name } = this.props.data;
+      const { name, picture } = this.props.data;
     return <article className="card">
       <p className="card__name">{name}</p>
       <Link to="/search"><img
       onClick={() => {this.props.func(name)}}
-      className="card__img" src={this.props.foto} alt={name}/></Link>
+      className="card__img" src={picture} alt={name}/></Link>
     </article>
   }
 }
