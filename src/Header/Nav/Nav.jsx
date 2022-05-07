@@ -6,11 +6,17 @@ class Nav extends Component {
     return (
       <nav className="nav">
         <Link className="nav__div" to="/">
-          HOME
+        POKEMONS
         </Link>
         <br />
-        <Link className="nav__div" to="/topics">
-          POKEMONS
+        <Link className="nav__div" to="/new">
+        NEW
+        </Link>
+        <Link className="nav__div" to="/pokemon/:id">
+        POKE-INFO
+        </Link>
+        <Link className="nav__div" to="/search">
+        BUSCADOR
         </Link>
 
       </nav>
