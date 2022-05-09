@@ -1,0 +1,35 @@
+@mixin main {
+  margin-top: 50px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  & > h1 {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-family: Oswald, sans-serif;
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+}
+.main {
+  @include main;
+  background-color: white;
+  & > h1 {
+    color: red;
+  }
+}
+.main_dark {
+  @include main;
+  background-color: #5db9ff;
+  & > h1 {
+    color: white;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .main {
+    margin-top: 90px;
+  }
+}
