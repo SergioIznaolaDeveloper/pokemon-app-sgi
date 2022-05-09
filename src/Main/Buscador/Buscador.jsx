@@ -41,7 +41,9 @@ function Buscador() {
             {inputText !== pokemon.name ? (
               <></>
             ) : (
-              <OneCard />
+              <>
+                <OneCard/>
+              </>
             )}
             </section>
 

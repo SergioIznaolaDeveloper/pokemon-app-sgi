@@ -2,11 +2,77 @@
 @import '../Utils/mixings.scss';
 
 @mixin form {
-    @include column;
-    min-height: 100vh;
-    justify-content: flex-start;
+  @include column;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: solid 5px black;
+  border-radius: 15px;
+  margin-bottom: 200px;
+  padding: 0px 10px;
+  & > p {
+    box-shadow: 0px 0px 3px rgb(90, 90, 90);
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Oswald', sans-serif;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    border-radius: 10px 10px 0px 0px;
+    margin: 0px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__two-elements {
+    margin-top: 15px;
+  }
+  &__label {
+    color: white;
+    font-family: 'oswald', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 15px 10px 5px 15px;
+    align-self: flex-start;
+    text-shadow: 0px 0px 2px black;
+  }
+  &__input {
+    box-shadow: 0px 0px 3px rgb(90, 90, 90);
+    width: 95%;
+    border-radius: 5px;
+    border: transparent;
+  }
+  &__button {
+    @include button;
+    border: transparent;
+    margin: 20px;
+    padding: 2px;
+    width: 60%;
+  }
+  &__errors{
+    border-radius: 15px;
+    padding: 5px;
+    color: red;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500
+    }
 }
-.form{
-    @include form;
+.form {
+  @include form;
+  background-image: url('../../assets/fondo_form_dark.jpg');
+  .form__button {
+    color: red;
+    background-color: white;
+  }
 }
-
+.form_dark {
+  @include form;
+  background-image: url('../../assets/fondo_form.png');
+  .form__button {
+    color: white;
+    background-color: red;
+  }
+}

@@ -7,7 +7,7 @@ import { ContextTheme } from "./Context/ContextTheme";
 import { useState, useEffect } from "react";
 import Card from "./Main/Topics/Card/Card";
 import "./Styles/Styles.scss";
-import Form from "./Main/Form/Form";
+import axios from "axios";
 
 // React functional component
 function App() {
@@ -17,6 +17,7 @@ function App() {
   const [myPokemons, setMyPokemons] = useState([]); // state para almacenar el pokemon seleccionado
   const [recent,  setRecent] = useState([]); // state para almacenar los pokemons recientes
   const [inputText, setInputText] = useState(""); // state para almacenar el texto del input
+
 
   try {
     
@@ -34,13 +35,17 @@ function App() {
         : (console.log(""));
       }
       // fetch que depende de inputText
-       fetch(
+
+        axios.get(
           `https://pokeapi.co/api/v2/pokemon/${inputText}`
         )
-        .then(res => res.json())
+        .then(res => res.data)
         .then(data => {
           includeData(data)
-      });
+      }
+      )
+
+
       let repeted = false; // variable para determinar si el input existe true or false
       //comprobar si el pokemon seleccionado es igual al pokemon reciente
       const testRecent = () => {
@@ -54,8 +59,8 @@ function App() {
     // funcion para fetch todos los pokemons
     const getPokemons = async () => {
       if (pokemons.length === 0) {
-      const resp = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`);
-      const data = await resp.json();
+      const resp = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=898`);
+      const data = await resp.data;
       setPokemons(data);
       } 
       for (let i = myPokemons.length; i < pokemons.results.length; i++) {
@@ -94,8 +99,17 @@ function App() {
         }; // seteo el state con user
         setMyPokemons(newPokemon); // seteo el state con noticia
         pokemons.results = [newPokemon, ...pokemons.results]; // seteo el state con noticias
-        this.reset()
       };
+      const testSames = (data) => {
+        let equal =  false;
+        //comprobar si el  pokemon seleccionado es igual al pokemon reciente
+        pokemons.results.map(p => {
+        return p.name === data.name ? equal = true : console.log("");
+        }) 
+        equal === false ? addPokemon(data) : alert(data.name + " already added");
+        equal = false;
+      }
+
   // agrupar datos y funciones para el context
   const dataInfo = {
     pokemon,
@@ -107,6 +121,7 @@ function App() {
     paintPokemons,
     onChangeInput,
     addPokemon,
+    testSames,
   };
   // agrupar estilos para el context
   const toogleTheme = () => them===""? setTheme("_dark"): setTheme("");
